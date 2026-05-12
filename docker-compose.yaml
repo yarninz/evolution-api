@@ -57,7 +57,10 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - evolution-net
+      evolution-net:
+        aliases:
+          - postgres
+          - evolution-postgres
     expose:
       - "5432"
 
