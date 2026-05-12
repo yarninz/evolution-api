@@ -447,3 +447,30 @@ export const buttonsMessageSchema: JSONSchema7 = {
   },
   required: ['number'],
 };
+
+export const productMessageSchema: JSONSchema7 = {
+  $id: v4(),
+  type: 'object',
+  properties: {
+    number: { ...numberDefinition },
+    productId: { type: 'string', minLength: 1 },
+    businessOwnerJid: {
+      type: 'string',
+      pattern: '^[0-9]+@s[.]whatsapp[.]net$',
+      description: '"businessOwnerJid" must look like "<phone>@s.whatsapp.net"',
+    },
+    productImage: { type: 'string', minLength: 1 },
+    retailerId: { type: 'string' },
+    title: { type: 'string' },
+    description: { type: 'string' },
+    currencyCode: { type: 'string', minLength: 3, maxLength: 3 },
+    priceAmount1000: { type: 'integer', minimum: 0 },
+    url: { type: 'string' },
+    productImageCount: { type: 'integer', minimum: 1 },
+    caption: { type: 'string' },
+    delay: { type: 'integer', description: 'Enter a value in milliseconds' },
+    quoted: { ...quotedOptionsSchema },
+  },
+  required: ['number', 'productId', 'businessOwnerJid', 'productImage'],
+  ...isNotEmpty('number', 'productId', 'businessOwnerJid', 'productImage'),
+};
