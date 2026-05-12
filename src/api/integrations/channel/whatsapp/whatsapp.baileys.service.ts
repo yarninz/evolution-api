@@ -2208,6 +2208,13 @@ export class BaileysStartupService extends ChannelStartupService {
       );
     }
 
+    if (message['product']) {
+      return await this.client.sendMessage(
+        sender,
+        message as unknown as AnyMessageContent,
+        option as unknown as MiscMessageGenerationOptions,
+      );
+    }
     if (!message['audio'] && !message['poll'] && !message['sticker'] && sender != 'status@broadcast') {
       return await this.client.sendMessage(
         sender,
