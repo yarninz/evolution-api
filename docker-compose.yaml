@@ -14,7 +14,7 @@ services:
       - evolution_instances:/evolution/instances
     networks:
       - evolution-net
-      - dokploy-network
+      - coolify
     env_file:
       - .env
     expose:
@@ -41,7 +41,7 @@ services:
       evolution-net:
         aliases:
           - evolution-redis
-      dokploy-network:
+      coolify:
         aliases:
           - evolution-redis
     expose:
@@ -67,7 +67,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - evolution-net
-      - dokploy-network
+      - coolify
     expose:
       - "5432"
 
@@ -80,5 +80,5 @@ networks:
   evolution-net:
     name: evolution-net
     driver: bridge
-  dokploy-network:
+  coolify:
     external: true
