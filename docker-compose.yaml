@@ -16,15 +16,6 @@ services:
     expose:
       - "8080"
 
-  frontend:
-    container_name: evolution_frontend
-    image: evoapicloud/evolution-manager:latest
-    restart: always
-    networks:
-      - evolution-net
-      - coolify
-    expose:
-      - "80"
 
   redis:
     container_name: evolution_redis
