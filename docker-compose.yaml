@@ -22,6 +22,7 @@ services:
     restart: always
     networks:
       - evolution-net
+      - coolify
     expose:
       - "80"
 
@@ -38,6 +39,11 @@ services:
         aliases:
           - redis
           - evolution-redis
+      coolify:
+        aliases:
+          - redis
+          - evolution-redis
+          
     expose:
       - "6379"
 
@@ -59,6 +65,10 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       evolution-net:
+        aliases:
+          - postgres
+          - evolution-postgres
+      coolify:
         aliases:
           - postgres
           - evolution-postgres
