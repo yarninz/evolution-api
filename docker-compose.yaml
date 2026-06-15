@@ -3,31 +3,21 @@ version: "3.8"
 services:
   api:
     container_name: evolution_api
-    image: evoapicloud/evolution-api:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     depends_on:
       - redis
       - evolution-postgres
-    ports:
-      - "127.0.0.1:8080:8080"
     volumes:
       - evolution_instances:/evolution/instances
     networks:
       - evolution-net
-      - dokploy-network
-    env_file:
-      - .env
+      - coolify
     expose:
       - "8080"
 
-  frontend:
-    container_name: evolution_frontend
-    image: evoapicloud/evolution-manager:latest
-    restart: always
-    ports:
-      - "3000:80"
-    networks:
-      - evolution-net
 
   redis:
     container_name: evolution_redis
@@ -40,10 +30,13 @@ services:
     networks:
       evolution-net:
         aliases:
+          - redis
           - evolution-redis
-      dokploy-network:
+      coolify:
         aliases:
+          - redis
           - evolution-redis
+          
     expose:
       - "6379"
 
@@ -51,8 +44,6 @@ services:
     container_name: evolution_postgres
     image: postgres:15
     restart: always
-    env_file:
-      - .env
     command:
       - postgres
       - -c
@@ -60,14 +51,20 @@ services:
       - -c
       - listen_addresses=*
     environment:
-      - POSTGRES_DB=${POSTGRES_DATABASE}
-      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
-      - evolution-net
-      - dokploy-network
+      evolution-net:
+        aliases:
+          - postgres
+          - evolution-postgres
+      coolify:
+        aliases:
+          - postgres
+          - evolution-postgres
     expose:
       - "5432"
 
@@ -80,5 +77,5 @@ networks:
   evolution-net:
     name: evolution-net
     driver: bridge
-  dokploy-network:
+  coolify:
     external: true
