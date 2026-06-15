@@ -174,6 +174,7 @@ export class SendReactionDto {
   reaction: string;
 }
 
+<<<<<<< HEAD
 export class CarouselCard {
   title?: string;
   body: string;
@@ -185,4 +186,29 @@ export class CarouselCard {
 export class SendCarouselDto extends Metadata {
   body: string;
   cards: CarouselCard[];
+=======
+export class SendProductDto extends Metadata {
+  /** WhatsApp internal product id (from /business/getCatalog `id`) */
+  productId: string;
+  /** Business owner JID — `<phone>@s.whatsapp.net` of the catalog owner */
+  businessOwnerJid: string;
+  /** Product image — URL or base64 */
+  productImage: string;
+  /** Merchant-side retailer id (e.g. `BD3`). Optional. */
+  retailerId?: string;
+  /** Product title shown to recipients as a fallback. */
+  title?: string;
+  /** Product description shown as a fallback. */
+  description?: string;
+  /** ISO 4217 currency code (e.g. `ILS`, `USD`). Defaults to `USD`. */
+  currencyCode?: string;
+  /** Price × 1000 (e.g. 5500 ILS → `5500000`). */
+  priceAmount1000?: number;
+  /** Product landing URL. Optional. */
+  url?: string;
+  /** How many images the product has in the catalog. Defaults to 1. */
+  productImageCount?: number;
+  /** Optional caption sent alongside the product card. */
+  caption?: string;
+>>>>>>> 97a314b9 (feat(messages): add sendProduct endpoint for WhatsApp Business catalog cards)
 }
