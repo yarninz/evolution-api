@@ -174,7 +174,6 @@ export class SendReactionDto {
   reaction: string;
 }
 
-<<<<<<< HEAD
 export class CarouselCard {
   title?: string;
   body: string;
@@ -186,7 +185,8 @@ export class CarouselCard {
 export class SendCarouselDto extends Metadata {
   body: string;
   cards: CarouselCard[];
-=======
+}
+
 export class SendProductDto extends Metadata {
   /** WhatsApp internal product id (from /business/getCatalog `id`) */
   productId: string;
@@ -210,5 +210,4 @@ export class SendProductDto extends Metadata {
   productImageCount?: number;
   /** Optional caption sent alongside the product card. */
   caption?: string;
->>>>>>> 97a314b9 (feat(messages): add sendProduct endpoint for WhatsApp Business catalog cards)
 }
